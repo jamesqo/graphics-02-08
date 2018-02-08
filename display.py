@@ -37,14 +37,14 @@ def save_ppm(screen, fname):
         row = ''
         for x in range(len(screen[y])):
             pixel = screen[y][x]
-            row += str(pixel[ RED ]) + ' '
-            row += str(pixel[ GREEN ]) + ' '
-            row += str(ypixel[ BLUE ]) + ' '
+            row += str(pixel[RED]) + ' '
+            row += str(pixel[GREEN]) + ' '
+            row += str(pixel[BLUE]) + ' '
         ppm += row + '\n'
     f.write(ppm)
     f.close()
 
-def save_extension screen, fname):
+def save_extension(screen, fname):
     ppm_name = fname[:fname.find('.')] + '.ppm'
     save_ppm(screen, ppm_name)
     p = Popen(['convert', ppm_name, fname], stdin=PIPE, stdout=PIPE)
