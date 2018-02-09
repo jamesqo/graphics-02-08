@@ -25,6 +25,18 @@ if __name__ == '__main__':
     draw_line(250, 250, -250 + 250, -125 + 250, screen, color)
     # 5th-6th
     draw_line(250, 250, -250 + 250, -250 + 250, screen, color)
+    # 6th octant
+    draw_line(250, 250, -125 + 250, -250 + 250, screen, color)
+    # 6th-7th
+    draw_line(250, 250, 250, -250 + 250, screen, color)
+    # 7th octant
+    draw_line(250, 250, 125 + 250, -250 + 250, screen, color)
+    # 7th-8th
+    draw_line(250, 250, 250 + 250, -250 + 250, screen, color)
+    # 8th octant
+    draw_line(250, 250, 250 + 250, -125 + 250, screen, color)
+    # 8th-1st
+    draw_line(250, 250, 250 + 250, 250, screen, color)
 
     display(screen)
     save_extension(screen, 'img.png')
