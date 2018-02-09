@@ -12,8 +12,29 @@ def draw_line(x0, y0, x1, y1, screen, color):
     elif dx < 0 and dy > 0 and dy >= -dx:
         # 3rd octant
         draw_line_case3(x0, y0, x1, y1, dx, dy, screen, color)
-    else:
+    elif dx < 0 and dy >= 0 and dy < -dx:
+        # 4th octant
         draw_line_case4(x0, y0, x1, y1, dx, dy, screen, color)
+    elif dx < 0 and dy < 0 and -dy <= -dx:
+        # 5th octant
+        draw_line_case5(x0, y0, x1, y1, dx, dy, screen, color)
+
+def draw_line_case5(x0, y0, x1, y1, dx, dy, screen, color):
+    a = dy
+    b = -dx
+
+    a_times_two = 2 * a
+    b_times_two = 2 * b
+
+    x, y = x0, y0
+    indicator = -a_times_two - b # Testing (x - 1, y - 1/2)
+    while x >= x1:
+        plot(screen, color, x, y)
+        if indicator > 0: # > 0 tests that point is above the line when dx < 0
+            y -= 1
+            indicator -= b_times_two
+        x -= 1
+        indicator -= a_times_two
 
 def draw_line_case4(x0, y0, x1, y1, dx, dy, screen, color):
     a = dy
@@ -26,7 +47,7 @@ def draw_line_case4(x0, y0, x1, y1, dx, dy, screen, color):
     indicator = -a_times_two + b # Testing (x - 1, y + 1/2)
     while x >= x1:
         plot(screen, color, x, y)
-        if indicator < 0: # < 0 tests that point is below the line
+        if indicator < 0: # < 0 tests that point is below the line when dx < 0
             y += 1
             indicator += b_times_two
         x -= 1
