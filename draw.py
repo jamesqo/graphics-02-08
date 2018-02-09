@@ -12,6 +12,25 @@ def draw_line(x0, y0, x1, y1, screen, color):
     elif dx < 0 and dy > 0 and dy >= -dx:
         # 3rd octant
         draw_line_case3(x0, y0, x1, y1, dx, dy, screen, color)
+    else:
+        draw_line_case4(x0, y0, x1, y1, dx, dy, screen, color)
+
+def draw_line_case4(x0, y0, x1, y1, dx, dy, screen, color):
+    a = dy
+    b = -dx
+
+    a_times_two = 2 * a
+    b_times_two = 2 * b
+
+    x, y = x0, y0
+    indicator = -a_times_two + b # Testing (x - 1, y + 1/2)
+    while x >= x1:
+        plot(screen, color, x, y)
+        if indicator < 0: # < 0 tests that point is below the line
+            y += 1
+            indicator += b_times_two
+        x -= 1
+        indicator -= a_times_two
 
 def draw_line_case3(x0, y0, x1, y1, dx, dy, screen, color):
     # Since dx is negative in this case, the sign test for the indicator
@@ -26,7 +45,9 @@ def draw_line_case3(x0, y0, x1, y1, dx, dy, screen, color):
     b_times_two = 2 * b
 
     x, y = x0, y0
-    indicator = -a + b_times_two
+    indicator = -a + b_times_two # Inputs to the indicator fn have changed.
+                                 # We are testing (x - 1/2, y + 1) instead of (x + 1/2, y + 1) now.
+                                 # Correspondingly, a is negated.
     while y <= y1:
         plot(screen, color, x, y)
         if indicator > 0:
@@ -66,7 +87,7 @@ def draw_line_case1(x0, y0, x1, y1, dx, dy, screen, color):
     indicator = a_times_two + b
     while x <= x1:
         plot(screen, color, x, y)
-        if indicator >= 0:
+        if indicator > 0:
             y += 1
             indicator += b_times_two
         x += 1
