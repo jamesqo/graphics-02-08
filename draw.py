@@ -6,8 +6,34 @@ def draw_line(x0, y0, x1, y1, screen, color):
     if dx > 0 and dy > 0 and dy <= dx:
         # 1st octant
         draw_line_case1(x0, y0, x1, y1, dx, dy, screen, color)
-    else:
+    elif dx >= 0 and dy > 0 and dy > dx:
+        # 2nd octant
         draw_line_case2(x0, y0, x1, y1, dx, dy, screen, color)
+    elif dx < 0 and dy > 0 and dy >= -dx:
+        # 3rd octant
+        draw_line_case3(x0, y0, x1, y1, dx, dy, screen, color)
+
+def draw_line_case3(x0, y0, x1, y1, dx, dy, screen, color):
+    # Since dx is negative in this case, the sign test for the indicator
+    # function is flipped.
+    # 0 > mx - y + b does not mean 0 > dy x - dx y + dx b.
+    # Instead, indicator > 0 means the point is above the graph and
+    # indicator < 0 means it's below.
+    a = dy
+    b = -dx
+
+    a_times_two = 2 * a
+    b_times_two = 2 * b
+
+    x, y = x0, y0
+    indicator = -a + b_times_two
+    while y <= y1:
+        plot(screen, color, x, y)
+        if indicator > 0:
+            x -= 1
+            indicator -= a_times_two
+        y += 1
+        indicator += b_times_two
 
 def draw_line_case2(x0, y0, x1, y1, dx, dy, screen, color):
     a = dy
